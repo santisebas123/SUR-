@@ -1,0 +1,617 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sur Restaurant - Mar del Plata</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #F5F0E8;
+    --dark: #1A1208;
+    --gold: #B8860B;
+    --gold-light: #D4A820;
+    --brick: #8B4513;
+    --warm-gray: #6B5D4F;
+    --white: #FDFAF5;
+  }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--dark);
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(26,18,8,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(184,134,11,0.2);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--gold-light);
+    letter-spacing: 0.1em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--dark);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1400&q=80');
+    background-size: cover; background-position: center;
+    opacity: 0.25;
+  }
+  .hero-content {
+    position: relative; text-align: center; padding: 2rem;
+    animation: fadeUp 1s ease both;
+  }
+  .hero-eyebrow {
+    font-size: 0.8rem; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 10vw, 8rem);
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+  }
+  .hero-title em { font-style: italic; color: var(--gold-light); }
+  .hero-subtitle {
+    font-size: 1rem; letter-spacing: 0.2em; color: var(--cream);
+    opacity: 0.7; margin-bottom: 3rem; text-transform: uppercase;
+  }
+  .hero-divider {
+    width: 60px; height: 1px; background: var(--gold);
+    margin: 0 auto 1.5rem;
+  }
+  .hero-desc {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-size: 1.1rem;
+    color: var(--cream); opacity: 0.85; max-width: 500px; margin: 0 auto 3rem;
+    line-height: 1.7;
+  }
+  .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    padding: 0.9rem 2.5rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; border: none; text-decoration: none; display: inline-block;
+    transition: all 0.3s;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--dark);
+    font-weight: 500;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--cream);
+    border: 1px solid rgba(245,240,232,0.4);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* SECTION BASE */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--white); line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+  .section-title em { font-style: italic; color: var(--gold-light); }
+
+  /* SOBRE NOSOTROS */
+  .about { background: #110D06; }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  .about-text p {
+    font-size: 1rem; line-height: 1.85; color: var(--cream);
+    opacity: 0.75; margin-bottom: 1.5rem;
+  }
+  .about-stats {
+    display: flex; gap: 3rem; margin-top: 2.5rem;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; color: var(--gold-light); display: block;
+  }
+  .stat-label {
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--cream); opacity: 0.5;
+  }
+  .about-image {
+    position: relative;
+  }
+  .about-image img {
+    width: 100%; aspect-ratio: 3/4; object-fit: cover;
+    filter: sepia(20%) brightness(0.9);
+  }
+  .about-image::before {
+    content: '';
+    position: absolute; top: -12px; left: -12px; right: 12px; bottom: 12px;
+    border: 1px solid rgba(184,134,11,0.3);
+    pointer-events: none; z-index: 1;
+  }
+
+  /* PLATOS */
+  .dishes { background: var(--dark); }
+  .dishes-header { text-align: center; margin-bottom: 4rem; }
+  .dishes-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .dish-card {
+    position: relative; overflow: hidden; cursor: pointer;
+    background: #1E150A;
+  }
+  .dish-card img {
+    width: 100%; aspect-ratio: 4/5; object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+    filter: brightness(0.85);
+  }
+  .dish-card:hover img { transform: scale(1.05); filter: brightness(0.7); }
+  .dish-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(transparent, rgba(26,18,8,0.95));
+  }
+  .dish-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--white); margin-bottom: 0.2rem;
+  }
+  .dish-tag {
+    font-size: 0.7rem; letter-spacing: 0.2em; color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* MENÚ */
+  .menu-section { background: #0D0904; }
+  .menu-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; margin-top: 3rem;
+  }
+  .menu-category h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; color: var(--gold-light);
+    margin-bottom: 1.5rem; padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(184,134,11,0.25);
+  }
+  .menu-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(245,240,232,0.06);
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .item-name {
+    font-size: 0.92rem; color: var(--cream); opacity: 0.85;
+    flex: 1; padding-right: 1rem;
+  }
+  .item-sub {
+    font-size: 0.75rem; color: var(--cream); opacity: 0.4;
+    display: block; margin-top: 0.15rem;
+    font-style: italic;
+  }
+  .item-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem; color: var(--gold-light);
+    white-space: nowrap;
+  }
+  .price-note {
+    font-size: 0.7rem; color: var(--cream); opacity: 0.4;
+    display: block; text-align: right; margin-top: 0.15rem;
+  }
+
+  /* SALÓN */
+  .salon { background: #110D06; }
+  .salon-header { text-align: center; margin-bottom: 3rem; }
+  .salon-gallery {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+  }
+  .salon-main { grid-row: 1 / 3; }
+  .salon-main img, .salon-secondary img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; filter: sepia(15%) brightness(0.88);
+  }
+  .salon-main { height: 500px; overflow: hidden; }
+  .salon-secondary { height: 240px; overflow: hidden; }
+
+  /* CONTACTO */
+  .contact { background: var(--dark); }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start;
+  }
+  .contact-info h2 { margin-bottom: 2rem; }
+  .contact-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    margin-bottom: 1.8rem;
+  }
+  .contact-icon {
+    width: 40px; height: 40px;
+    border: 1px solid rgba(184,134,11,0.3);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--gold); font-size: 1rem;
+  }
+  .contact-label {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.3rem;
+  }
+  .contact-value {
+    font-size: 0.95rem; color: var(--cream); opacity: 0.8;
+    line-height: 1.5;
+  }
+  .whatsapp-btn {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    background: #25D366; color: #fff;
+    padding: 1rem 2rem; text-decoration: none;
+    font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 500; margin-top: 1rem;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .whatsapp-btn:hover { background: #1EBE5A; transform: translateY(-2px); }
+  .map-placeholder {
+    background: #1A1208;
+    border: 1px solid rgba(184,134,11,0.2);
+    height: 350px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1rem;
+  }
+  .map-placeholder span { font-size: 2rem; }
+  .map-placeholder p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; color: var(--cream); opacity: 0.5;
+    font-size: 0.9rem;
+  }
+  .map-link {
+    color: var(--gold); text-decoration: none;
+    font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
+    border-bottom: 1px solid rgba(184,134,11,0.4);
+    padding-bottom: 2px; transition: opacity 0.2s;
+  }
+  .map-link:hover { opacity: 0.7; }
+
+  /* FOOTER */
+  footer {
+    background: #060401;
+    text-align: center; padding: 3rem 2rem;
+    border-top: 1px solid rgba(184,134,11,0.15);
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; color: var(--gold-light);
+    letter-spacing: 0.15em; margin-bottom: 1rem;
+  }
+  .footer-tagline {
+    font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--cream); opacity: 0.3; margin-bottom: 2rem;
+  }
+  .footer-bottom {
+    font-size: 0.75rem; color: var(--cream); opacity: 0.2;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .about-grid, .menu-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .dishes-grid { grid-template-columns: 1fr 1fr; }
+    .salon-gallery { grid-template-columns: 1fr; }
+    .salon-main { grid-row: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SUR</div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Nosotros</a></li>
+    <li><a href="#platos">Platos</a></li>
+    <li><a href="#menu">Menú</a></li>
+    <li><a href="#salon">El Salón</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Mar del Plata · Desde siempre</p>
+    <h1 class="hero-title">Sur<br><em>Restaurant</em></h1>
+    <p class="hero-subtitle">Mariscos · Pastas · Cazuelas</p>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">El sabor del mar en un ambiente cálido y tradicional, con la generosidad que nos caracteriza.</p>
+    <div class="btn-group">
+      <a href="#menu" class="btn btn-primary">Ver el menú</a>
+      <a href="#contacto" class="btn btn-outline">Reservar</a>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE NOSOTROS -->
+<section class="about" id="sobre">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-label">Quiénes somos</p>
+        <h2 class="section-title">Un clásico del <em>sabor marplatense</em></h2>
+        <p>Sur Restaurant es un espacio donde la tradición se sirve en cada plato. Especialistas en mariscos y frutos del mar, nuestra propuesta combina recetas de siempre con productos frescos de la costa atlántica.</p>
+        <p>Nuestro salón de ladrillo a la vista y madera cálida crea la atmósfera perfecta para una noche memorable en familia, con amigos, o en pareja.</p>
+        <div class="about-stats">
+          <div>
+            <span class="stat-num">4.6</span>
+            <span class="stat-label">★ Puntuación</span>
+          </div>
+          <div>
+            <span class="stat-num">+5.600</span>
+            <span class="stat-label">Reseñas</span>
+          </div>
+          <div>
+            <span class="stat-num">3</span>
+            <span class="stat-label">Servicios</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Interior del restaurante Sur">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATOS DESTACADOS -->
+<section class="dishes" id="platos">
+  <div class="container">
+    <div class="dishes-header">
+      <p class="section-label">Nuestros platos</p>
+      <h2 class="section-title">Lo que nos hace <em>únicos</em></h2>
+    </div>
+    <div class="dishes-grid">
+      <div class="dish-card">
+        <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=600&q=80" alt="Cazuela de Mariscos">
+        <div class="dish-info">
+          <p class="dish-name">Cazuela de Mariscos</p>
+          <p class="dish-tag">⭐ El más pedido</p>
+        </div>
+      </div>
+      <div class="dish-card">
+        <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=80" alt="Paella">
+        <div class="dish-info">
+          <p class="dish-name">Paella</p>
+          <p class="dish-tag">Especialidad de la casa</p>
+        </div>
+      </div>
+      <div class="dish-card">
+        <img src="https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=600&q=80" alt="Rabas y Langostinos">
+        <div class="dish-info">
+          <p class="dish-name">Rabas & Langostinos</p>
+          <p class="dish-tag">Empanados con coco</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENÚ -->
+<section class="menu-section" id="menu">
+  <div class="container">
+    <p class="section-label">Carta</p>
+    <h2 class="section-title">Nuestro <em>menú</em></h2>
+    <div class="menu-grid">
+
+      <!-- Pastas -->
+      <div class="menu-category">
+        <h3>Pastas</h3>
+        <div class="menu-item">
+          <div class="item-name">Sorrentinos SUR<span class="item-sub">salmón y langostinos</span></div>
+          <div class="item-price">$19.500<span class="price-note">Med. $14.500</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">Sorrentinos<span class="item-sub">jamón y mozzarella</span></div>
+          <div class="item-price">$13.500<span class="price-note">Med. $11.500</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">Cintas de Espinaca o Huevo</div>
+          <div class="item-price">$12.800<span class="price-note">Med. $10.000</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">Ñoquis Soufflé de Espinaca</div>
+          <div class="item-price">$12.800<span class="price-note">Med. $10.000</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">Crepe de Salmón Rosado</div>
+          <div class="item-price">$19.500</div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">Crepe SUR<span class="item-sub">pollo, mozzarella y puerro</span></div>
+          <div class="item-price">$14.500</div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">Crepe de Espinaca</div>
+          <div class="item-price">$14.500</div>
+        </div>
+      </div>
+
+      <!-- Salsas -->
+      <div class="menu-category">
+        <h3>Salsas para tu pasta</h3>
+        <div class="menu-item">
+          <div class="item-name">A la Crema, Fileto, Manteca u Oliva</div>
+          <div class="item-price">$4.500</div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">A la Crema Gratinados con queso</div>
+          <div class="item-price">$6.000</div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">SUR<span class="item-sub">tomate fresco, albahaca, ajo y aceitunas negras</span></div>
+          <div class="item-price">$6.000</div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">Bolognesse<span class="item-sub">tomate y carne picada</span></div>
+          <div class="item-price">$6.000</div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">Champignones<span class="item-sub">crema de hongos</span></div>
+          <div class="item-price">$6.000</div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">Arrabiata<span class="item-sub">tomate, ajo, ají, panceta ahumada y albahaca</span></div>
+          <div class="item-price">$6.000</div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">Parisienne<span class="item-sub">champignons, ave, jamón y crema</span></div>
+          <div class="item-price">$6.000</div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">Putanesca<span class="item-sub">tomate, aceitunas, alcaparras, anchoas, ajo, pimienta</span></div>
+          <div class="item-price">$6.000</div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">Langostinos con ajo y aceite de oliva</div>
+          <div class="item-price">$8.500</div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">Frutos del Mar</div>
+          <div class="item-price">$8.500</div>
+        </div>
+        <div class="menu-item">
+          <div class="item-name">Langostinos con rúcula y champignon fresco</div>
+          <div class="item-price">$8.500</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EL SALÓN -->
+<section class="salon" id="salon">
+  <div class="container">
+    <div class="salon-header">
+      <p class="section-label">El ambiente</p>
+      <h2 class="section-title">Un salón con <em>alma propia</em></h2>
+    </div>
+    <div class="salon-gallery">
+      <div class="salon-main">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" alt="Salón principal de Sur Restaurant">
+      </div>
+      <div class="salon-secondary">
+        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&q=80" alt="Detalle del salón">
+      </div>
+      <div class="salon-secondary">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80" alt="Mesa preparada">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contact" id="contacto">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p class="section-label">Encontranos</p>
+        <h2 class="section-title">Vení a <em>visitarnos</em></h2>
+
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <p class="contact-label">Dirección</p>
+            <p class="contact-value">Alvarado 2763<br>Mar del Plata, Buenos Aires</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <p class="contact-label">Teléfono</p>
+            <p class="contact-value">0223 493-6260</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div>
+            <p class="contact-label">Horario</p>
+            <p class="contact-value">Abre a las 20:30 hs<br>Todos los días</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">🍽️</div>
+          <div>
+            <p class="contact-label">Servicios</p>
+            <p class="contact-value">Salón · Para llevar · Delivery</p>
+          </div>
+        </div>
+
+        <a href="https://wa.me/5492234936260" class="whatsapp-btn" target="_blank">
+          💬 &nbsp;Escribinos por WhatsApp
+        </a>
+      </div>
+
+      <div class="map-placeholder">
+        <span>🗺️</span>
+        <p>Alvarado 2763, Mar del Plata</p>
+        <a href="https://maps.app.goo.gl/ZWeFRo1y97D1goix6" target="_blank" class="map-link">
+          Abrir en Google Maps →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">SUR</div>
+  <p class="footer-tagline">Restaurant · Mar del Plata</p>
+  <p class="footer-bottom">© 2025 Sur Restaurant · Alvarado 2763, Mar del Plata · 0223 493-6260</p>
+</footer>
+
+</body>
+</html>
